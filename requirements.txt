@@ -1,4 +1,5 @@
 setuptools
+openpyxl
 joblib==1.2.0
 matplotlib==3.7.2
 pandas==2.0.3
