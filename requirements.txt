@@ -5,4 +5,5 @@ plotly==5.18.0
 scikit_learn==1.3.2
 seaborn==0.13.2
 streamlit==1.38.0
-numpy==1.23.5
+~atplotlib==3.7.1
+~umpy==1.23.5
