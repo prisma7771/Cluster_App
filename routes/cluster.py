@@ -142,14 +142,14 @@ menu_option = st.sidebar.selectbox(
 if menu_option == "Upload Data":
     uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
     if uploaded_file is not None:
-        data = pd.read_csv(uploaded_file)
-        data_processed = pre_process(data)
+        data_uploaded = pd.read_csv(uploaded_file)
+        data_processed = pre_process(data_uploaded)
 
         col1, col2 = st.columns(2)
 
         with col1:
             st.write("Data Preview:")
-            st.dataframe(data)
+            st.dataframe(data_uploaded)
 
         with col2:
             st.write("Processed Data Preview:")
