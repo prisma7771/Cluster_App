@@ -38,30 +38,24 @@ def show_introduction():
 def show_preview_of_raw_data(df):
     st.title("Preview of Raw Data")
 
-    # Display the first few rows of the dataset
     st.subheader("First 5 Rows")
     st.write(df.head())
 
-    # Show basic statistics
     st.subheader("Basic Statistics")
     st.write(df.describe())
 
-    # Show data types and null values
-    # Show data types and null values
     st.subheader("Data Types and Null Values")
     buffer = io.StringIO()
     df.info(buf=buffer)
     s = buffer.getvalue()
     st.text(s)
 
-    # Allow users to select columns to display
     st.subheader("Select Columns to Display")
     columns = st.multiselect(
         "Select Columns", df.columns.tolist(), default=df.columns.tolist()
     )
     st.write(df[columns])
 
-    # Filter data by specific criteria (e.g., select a range of values)
     st.subheader("Filter Data")
     numeric_columns = df.select_dtypes(include=["float64", "int64"]).columns
     filter_column = st.selectbox("Select a Numeric Column to Filter", numeric_columns)
@@ -80,7 +74,6 @@ def show_preview_of_raw_data(df):
 def show_firefly_and_pca():
     st.title("Apa itu Firefly dan PCA?")
 
-    # Algoritma Firefly
     st.subheader("Algoritma Firefly")
     st.markdown("""
     **Algoritma Firefly** adalah algoritma optimisasi metaheuristik yang terinspirasi dari kunang-kunang dan dikembangkan oleh Xin-She Yang pada tahun 2008.
@@ -93,7 +86,6 @@ def show_firefly_and_pca():
     - Efektif untuk memecahkan masalah optimisasi yang kompleks seperti clustering.
     """)
 
-    # PCA
     st.subheader("Principal Component Analysis (PCA)")
     st.markdown("""
     **Principal Component Analysis (PCA)** adalah teknik yang digunakan untuk pengurangan dimensi sambil mempertahankan 
@@ -108,7 +100,6 @@ def show_firefly_and_pca():
     PCA biasanya digunakan sebelum dilakukan clustering atau klasifikasi untuk meningkatkan perfoma dan mengurangi waktu komputasi.
     """)
 
-    # Sumber Tambahan
     st.markdown("""
     **Sumber Tambahan:**
     - [Understanding Firefly Algorithm](https://www.baeldung.com/cs/firefly-algorithm)
@@ -119,15 +110,12 @@ def show_firefly_and_pca():
 def show_eda(df):
     st.title("Exploratory Data Analysis (EDA)")
 
-    # Show data overview
     st.subheader("Data Overview")
     st.write(df.head())
 
-    # Descriptive statistics
     st.subheader("Descriptive Statistics")
     st.write(df.describe())
 
-    # Sales over time
     st.subheader("Sales Over Time")
     df["tanggal"] = pd.to_datetime(df["tanggal"], format="%d-%m-%Y")
     daily_sales = df.groupby("tanggal")["total_harga"].sum().reset_index()
@@ -139,7 +127,6 @@ def show_eda(df):
     plt.ylabel("Total Sales")
     st.pyplot(plt)
 
-    # Sales distribution by category
     st.subheader("Sales Distribution by Category")
     category_sales = df.groupby("kategori")["total_harga"].sum().reset_index()
     plt.figure(figsize=(10, 5))
@@ -149,13 +136,11 @@ def show_eda(df):
     plt.ylabel("Total Sales")
     st.pyplot(plt)
 
-    # Most popular menu items
     st.subheader("Most Popular Menu Items")
     popular_items = df["menu"].value_counts().reset_index()
     popular_items.columns = ["Menu Item", "Count"]
     st.write(popular_items.head(10))
 
-    # Order type analysis
     st.subheader("Order Type Analysis")
     order_type_counts = df["order"].value_counts().reset_index()
     order_type_counts.columns = ["Order Type", "Count"]
@@ -167,7 +152,6 @@ def show_eda(df):
     plt.ylabel("Count")
     st.pyplot(plt)
 
-    # Correlation Heatmap
     st.subheader("Correlation Analysis")
     correlation_matrix = df[["jml_pembelian", "harga", "total_harga"]].corr()
 
@@ -177,7 +161,6 @@ def show_eda(df):
     st.pyplot(plt)
 
 
-# Load data
 df = load_data()
 
 page = st.sidebar.radio(
