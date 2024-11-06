@@ -202,6 +202,9 @@ predicted_labels2 = model_kmeans_enhanced["clusterer"]["kmeans"].labels_
 score1 = silhouette_score(preprocessed_data1, predicted_labels1)
 score2 = silhouette_score(preprocessed_data2, predicted_labels2)
 
+sse1 = model_kmeans["clusterer"]["kmeans"].inertia_  # SSE for model_kmeans
+sse2 = model_kmeans_enhanced["clusterer"]["kmeans"].inertia_
+
 df1 = pd.DataFrame(
     model_kmeans["preprocessor"].transform(df),
 )
@@ -213,7 +216,8 @@ col1, col2 = st.columns(2)
 
 with col1:
     st.write("Original  K-Means")
-    st.write(score1)
+    st.write(f"SSE = {sse1:.3f}")
+    st.write(f"Silhouette Score = {score1:.3f}")
 
     st.image(
         plot_2d_projection(
@@ -259,14 +263,11 @@ with col1:
         output_format="PNG",
     )
 
-    # plot_3d_pca(df1, predicted_labels1)
-
-    # plot_3d_tsne(df1, predicted_labels1)
-
 
 with col2:
     st.write("Enhanched K-means")
-    st.write(score2)
+    st.write(f"SSE = {sse2:.3f}")
+    st.write(f"Silhouette Score = {score2:.3f}")
 
     st.image(
         plot_2d_projection(
