@@ -4,28 +4,15 @@ import streamlit as st
 
 
 @st.cache_data
-def compute_pca2(data):
-    pca = PCA(n_components=2)
+def compute_pca(data, n):
+    pca = PCA(n_components=n)
     X_pca2 = pca.fit_transform(data)
     return X_pca2
 
 
 @st.cache_data
-def compute_pca3(data):
-    pca = PCA(n_components=3)
-    X_pca3 = pca.fit_transform(data)
-    return X_pca3
-
-
-@st.cache_data
-def compute_tsne2(data):
-    tsne = TSNE(n_components=2, random_state=42)
-    X_tsne2 = tsne.fit_transform(data)
+def compute_tsne(data, n):
+    tsne = TSNE(n_components=n, random_state=42)
+    X_tsne2 = tsne.fit_transform(data, n)
     return X_tsne2
 
-
-@st.cache_data
-def compute_tsne3(data):
-    tsne = TSNE(n_components=3, random_state=42)
-    X_tsne3 = tsne.fit_transform(data)
-    return X_tsne3

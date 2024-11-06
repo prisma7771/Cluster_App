@@ -3,18 +3,14 @@ import streamlit as st
 import pandas as pd
 import matplotlib.cm as cm
 import matplotlib.colors as mcolors
-
 import plotly.graph_objects as go
-
-from utils.computation import compute_tsne3
+from utils.computation import compute_tsne
 from utils.utils import pre_process
 
 
 kmeans_model = joblib.load("data/kmeans_model_pca_firefly.joblib")
 
-
 old_data = pd.read_csv("data/data_cluster_ori.csv")
-
 
 old_data.rename(columns={"predicted_cluster": "Cluster"}, inplace=True)
 old_data["DataType"] = "Original"
@@ -56,7 +52,7 @@ def calculate_data(selected_items):
 def plot_3d_tsne_new(
     combined_data, pred_cluster, data_type, title="t-SNE 3D Visualization"
 ):
-    X_tsne = compute_tsne3(combined_data)
+    X_tsne = compute_tsne(combined_data, 3)
 
     set2_colors = cm.Set2.colors
     color_map = {i: mcolors.to_hex(set2_colors[i]) for i in range(len(set2_colors))}
