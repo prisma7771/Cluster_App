@@ -10,28 +10,13 @@ from utils.utils import load_data, pre_process
 
 df = load_data()
 
-
 st.subheader("First 5 Rows")
 st.write(df.head())
 
-
-st.subheader("Basic Statistics")
-st.write(df.describe())
-
-
-st.subheader("Data Types and Null Values")
-buffer = io.StringIO()
-df.info(buf=buffer)
-s = buffer.getvalue()
-st.text(s)
-
-
 processed_df = pre_process(df)
-
 
 st.subheader("Processed Transformed Data")
 st.write(processed_df.head())
-
 
 scaler = StandardScaler()
 data_scaled = pd.DataFrame(
