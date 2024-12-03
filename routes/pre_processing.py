@@ -29,7 +29,7 @@ st.text(s)
 processed_df = pre_process(df)
 
 
-st.subheader("Processed Data Preview 1")
+st.subheader("Processed Transformed Data")
 st.write(processed_df.head())
 
 
@@ -38,16 +38,14 @@ data_scaled = pd.DataFrame(
     scaler.fit_transform(processed_df), columns=[processed_df.columns]
 )
 
-data_scaled
+st.subheader("Processed Normalized Data")
+st.write(data_scaled.head())
 
 
 pca = PCA()
 pca.fit(data_scaled)
 
-
 explained_variance = pca.explained_variance_ratio_
-
-
 cumulative_variance = explained_variance.cumsum()
 
 
@@ -77,23 +75,26 @@ st.write("Cumulative Variance")
 st.text(cumulative_variance)
 
 
-n_components = np.where(cumulative_variance > 0.8)
+n_components = np.where(cumulative_variance > 0.9)
 n_components = n_components[0][0] + 1
 
 pca = PCA(n_components=n_components)
 data_reduced = pca.fit_transform(data_scaled)
 
 
-data_reduced_df = pd.DataFrame(
+pca_df = pd.DataFrame(
     data_reduced, columns=[f"PC{i+1}" for i in range(n_components)]
 )
+
+st.subheader("Processed PCA Data")
+st.write(pca_df.head())
 
 distortions = []
 
 K = range(1, 20)
 for k in K:
     kmeans = KMeans(n_clusters=k, n_init=100, random_state=42)
-    kmeans.fit(data_reduced_df)
+    kmeans.fit(pca_df)
     distortions.append(kmeans.inertia_)
 
 plt.figure(figsize=(10, 6))
@@ -102,3 +103,4 @@ plt.title("Elbow Method For Optimal k")
 plt.xlabel("Number of Clusters")
 plt.ylabel("Distortion")
 st.pyplot(plt)
+
