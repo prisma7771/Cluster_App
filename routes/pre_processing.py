@@ -33,6 +33,7 @@ cov_matrix = np.cov(data_scaled, rowvar=False)
 np.fill_diagonal(cov_matrix, 1)
 eigenvalues, eigenvectors = np.linalg.eig(cov_matrix)
 eigenvalues_real = np.round(eigenvalues.real,3)
+eigenvectors = np.round(eigenvectors.real, 4)
 
 explained_variance = pca.explained_variance_ratio_
 cumulative_variance = explained_variance.cumsum()
