@@ -49,7 +49,7 @@ pc_array = np.array([f'PC{i+1}' for i in range(0,9)])
 pc_np = np.column_stack([pc_array, eigenvalues])
 eigenvalues_df = pd.DataFrame(pc_np, columns=['PC', 'eigenvalue'])
 eigenvalues_df.set_index('PC', inplace=True)
-eigenvalues_df['eigenvalue'] = eigenvalues_df['eigenvalue'].round(3)
+eigenvalues_df['eigenvalue'] = pd.to_numeric(eigenvalues_df['eigenvalue']).round(3)
 with col_1:
     st.write("**Eigenvalues**")
     st.write(eigenvalues_df)
