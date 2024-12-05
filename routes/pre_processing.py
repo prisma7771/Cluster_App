@@ -32,6 +32,7 @@ pca.fit(data_scaled)
 cov_matrix = np.cov(data_scaled, rowvar=False)
 np.fill_diagonal(cov_matrix, 1)
 eigenvalues, eigenvectors = np.linalg.eig(cov_matrix)
+eigenvalues_real = np.round(eigenvalues.real,3)
 
 explained_variance = pca.explained_variance_ratio_
 cumulative_variance = explained_variance.cumsum()
@@ -46,10 +47,11 @@ st.pyplot(fig)
 col_1, col_2 = st.columns([1,3]) 
 
 pc_array = np.array([f'PC{i+1}' for i in range(0,9)])
-pc_np = np.column_stack([pc_array, eigenvalues])
+pc_np = np.column_stack([pc_array, eigenvalues_real])
 eigenvalues_df = pd.DataFrame(pc_np, columns=['PC', 'eigenvalue'])
 eigenvalues_df.set_index('PC', inplace=True)
-eigenvalues_df['eigenvalue'] = pd.to_numeric(eigenvalues_df['eigenvalue']).round(3)
+eigenvalues_df['eigenvalue'] = eigenvalues_df['eigenvalue'].str.strip("()").str.replace("+0j","")
+eigenvalues_df["eigenvalue"] = pd.to_numeric(eigenvalues_df["eigenvalue"])
 with col_1:
     st.write("**Eigenvalues**")
     st.write(eigenvalues_df)
