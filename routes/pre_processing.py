@@ -1,11 +1,11 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import io
 from sklearn.decomposition import PCA
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
+import seaborn as sns
 from utils.utils import load_data, pre_process
 
 df = load_data()
@@ -26,13 +26,47 @@ data_scaled = pd.DataFrame(
 st.subheader("Processed Normalized Data")
 st.write(data_scaled.head())
 
-
 pca = PCA()
 pca.fit(data_scaled)
+
+cov_matrix = np.cov(data_scaled, rowvar=False)
+np.fill_diagonal(cov_matrix, 1)
+eigenvalues, eigenvectors = np.linalg.eig(cov_matrix)
 
 explained_variance = pca.explained_variance_ratio_
 cumulative_variance = explained_variance.cumsum()
 
+fig, ax = plt.subplots()
+hm = sns.heatmap(data=cov_matrix, annot=True,
+                xticklabels=df.columns,
+                yticklabels=df.columns
+                )
+st.pyplot(fig)
+
+col_1, col_2 = st.columns([1,3]) 
+
+pc_array = np.array([f'PC{i+1}' for i in range(0,9)])
+pc_np = np.column_stack([pc_array, eigenvalues])
+eigenvalues_df = pd.DataFrame(pc_np, columns=['PC', 'eigenvalue'])
+eigenvalues_df.set_index('PC', inplace=True)
+eigenvalues_df['eigenvalue'] = pd.to_numeric(eigenvalues_df['eigenvalue']).round(3)
+with col_1:
+    st.write("**Eigenvalues**")
+    st.write(eigenvalues_df)
+
+with col_2:
+    st.write("**Eigenvectors**")
+    st.write(eigenvectors)
+
+fig, ax = plt.subplots(figsize=(10,6))
+bar_container = ax.bar(
+    range(1, len(explained_variance)+1),
+    explained_variance,
+)
+plt.xlabel("PC")
+plt.ylabel("Explained Variance Ratio")
+ax.bar_label(bar_container, fmt='{:,.3f}')
+st.pyplot(plt)
 
 plt.figure(figsize=(10, 6))
 plt.plot(
