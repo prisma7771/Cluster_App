@@ -10,5 +10,5 @@ pages = [
 
 
 pg = st.navigation(pages)
-st.set_page_config(page_title="Main Menu")
+st.set_page_config(page_title="123190048_ClusterApp")
 pg.run()

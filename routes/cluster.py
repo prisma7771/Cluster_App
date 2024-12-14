@@ -14,6 +14,16 @@ old_data = pd.read_csv("data/data_cluster_ori.csv")
 
 old_data.rename(columns={"predicted_cluster": "Cluster"}, inplace=True)
 old_data["DataType"] = "Original"
+column_ori = [
+    "tanggal",
+    "waktu_pembelian",
+    "jml_pembelian",
+    "harga",
+    "kategori",
+    "menu",
+    "total_harga",
+    "order",
+]
 
 
 def calculate_data(selected_items):
@@ -120,40 +130,62 @@ menu_option = st.sidebar.selectbox(
     ["Upload Data", "Input New Data"],
 )
 
+cluster_profile = {
+    "Cluster": ["Cluster 0", "Cluster 1", "Cluster 2", "Cluster 3", "Cluster 4"],
+    "Profile": [
+        "High Spender, Average Purchase, Focused on Non-Coffe with high price ",
+        "High Spender, Average Purchase, Focused on Coffe with high price ",
+        "Moderate Spender, Average Purchase, Focused on Non-Coffe and Food with moderate price ",
+        "Very High Spender, High Purchase, High Variance item with high price",
+        "Low Spender, Average Purchase, Focused on Non-Coffe with low price ",
+    ],
+}
+
+cluster_profile_df = pd.DataFrame(cluster_profile)
+cluster_profile_df.set_index("Cluster", inplace=True)
+st.table(cluster_profile_df)
 
 if menu_option == "Upload Data":
     uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
     if uploaded_file is not None:
         data_uploaded = pd.read_csv(uploaded_file)
-        data_processed = pre_process(data_uploaded)
 
-        col1, col2 = st.columns(2)
+        # Get the columns of both the uploaded file and the original data (fata ori)
+        uploaded_columns = data_uploaded.columns.tolist()
 
-        with col1:
-            st.write("Data Preview:")
-            st.dataframe(data_uploaded)
+        if uploaded_columns == column_ori:
+            data_processed = pre_process(data_uploaded)
 
-        with col2:
-            st.write("Processed Data Preview:")
-            st.dataframe(data_processed)
+            col1, col2 = st.columns(2)
 
-        if st.button("Predict Clusters"):
-            predictions = kmeans_model.predict(data_processed)
+            with col1:
+                st.write("Data Preview:")
+                st.dataframe(data_uploaded)
 
-            data_processed["Cluster"] = predictions
-            st.write("Predicted Clusters:")
-            st.dataframe(data_processed)
+            with col2:
+                st.write("Processed Data Preview:")
+                st.dataframe(data_processed)
 
-            new_data = data_processed.copy()
-            new_data["DataType"] = "New"
+            if st.button("Predict Clusters"):
+                predictions = kmeans_model.predict(data_processed)
 
-            combined_data = pd.concat([old_data, new_data], ignore_index=True)
+                data_processed["Cluster"] = predictions
+                st.write("Predicted Clusters:")
+                st.dataframe(data_processed)
 
-            features_only = combined_data.drop(columns=["Cluster", "DataType"])
+                new_data = data_processed.copy()
+                new_data["DataType"] = "New"
 
-            plot_3d_tsne_new(
-                features_only, combined_data["Cluster"], combined_data["DataType"]
-            )
+                combined_data = pd.concat([old_data, new_data], ignore_index=True)
+
+                features_only = combined_data.drop(columns=["Cluster", "DataType"])
+
+                plot_3d_tsne_new(
+                    features_only, combined_data["Cluster"], combined_data["DataType"]
+                )
+        else:
+            # Show a simple toast message
+            st.toast("The format is not same as expected data!", icon="⚠️")
 
 
 elif menu_option == "Input New Data":

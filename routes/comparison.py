@@ -330,12 +330,11 @@ st.write(data_cluster.head())
 cluster_counts = data_cluster["predicted_cluster"].value_counts().sort_index()
 
 
-plt.figure(figsize=(8, 6))
-sns.barplot(x=cluster_counts.index, y=cluster_counts.values, palette="viridis")
-plt.title("Count of Data Points in Each Cluster")
-plt.xlabel("Cluster")
-plt.ylabel("Count")
-plt.xticks(rotation=0)
+plt, ax = plt.subplots(figsize=(8, 6))
+ax = sns.barplot(x=cluster_counts.index, y=cluster_counts.values, palette="Set2")
 
+ax.bar_label(ax.containers[0], fmt="%.0f", label_type="edge", padding=3)
+ax.set_title("Distribution of Each Cluster")
+ax.set_ylabel("Count")
+ax.set_xlabel("Cluster")
 st.pyplot(plt)
-st.write(cluster_counts)

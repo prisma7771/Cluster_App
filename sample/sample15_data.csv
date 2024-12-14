@@ -1,0 +1,16 @@
+tanggal,waktu_pembelian,jml_pembelian,harga,kategori,menu,total_harga,order
+05-06-2024,21:22,2,12000,Food,Tahu Bakso,24000,takeaway
+28-06-2024,15:38,2,18000,Coffee,Latte,36000,dine-in
+08-05-2024,15:49,1,15000,Non-Coffee,Strawberry Squash,15000,takeaway
+29-04-2024,17:20,2,15000,Non-Coffee,Strawberry Squash,30000,takeaway
+06-06-2024,14:28,3,18000,Coffee,Cappucinno,54000,dine-in
+06-04-2024,14:38,1,8000,Food,Mendoan,8000,dine-in
+02-04-2024,22:39,2,12000,Food,Tahu Bakso,24000,dine-in
+22-06-2024,17:39,1,18000,Coffee,Cappucinno,18000,dine-in
+11-06-2024,14:06,1,18000,Coffee,Latte,18000,dine-in
+03-04-2024,17:38,2,10000,Coffee,Espresso,20000,dine-in
+29-04-2024,18:33,1,15000,Non-Coffee,Milk Shake,15000,takeaway
+23-05-2024,15:04,4,15000,Non-Coffee,Milk Shake,60000,dine-in
+02-06-2024,14:34,2,18000,Coffee,Cappucinno,36000,dine-in
+06-05-2024,22:43,1,5000,Non-Coffee,Tea,5000,dine-in
+02-04-2024,19:11,1,5000,Non-Coffee,Tea,5000,dine-in

@@ -1,0 +1,21 @@
+tanggal,waktu_pembelian,jml_pembelian,harga,kategori,menu,total_harga,order
+04-05-2024,17:51,1,12000,Coffee,Vietnam Drip,12000,dine-in
+24-05-2024,18:49,1,12000,Coffee,Vietnam Drip,12000,dine-in
+27-04-2024,22:29,3,15000,Food,Mix Platter,45000,takeaway
+05-05-2024,14:24,1,12000,Coffee,Americano,12000,dine-in
+07-04-2024,15:47,2,10000,Coffee,Espresso,20000,takeaway
+22-05-2024,18:54,2,15000,Food,Mix Platter,30000,dine-in
+20-06-2024,17:48,1,15000,Non-Coffee,Milk Shake,15000,takeaway
+07-05-2024,15:40,1,10000,Coffee,Espresso,10000,dine-in
+03-06-2024,18:53,1,5000,Non-Coffee,Tea,5000,dine-in
+24-06-2024,16:34,1,18000,Coffee,Cappucinno,18000,dine-in
+27-05-2024,14:56,1,10000,Coffee,Espresso,10000,takeaway
+22-04-2024,14:41,4,15000,Food,Mix Platter,60000,dine-in
+05-06-2024,20:27,1,9000,Food,Pisang Goreng,9000,takeaway
+02-06-2024,18:59,2,15000,Food,Mix Platter,30000,takeaway
+05-05-2024,21:00,2,10000,Coffee,Espresso,20000,takeaway
+16-06-2024,15:29,1,18000,Coffee,Cappucinno,18000,dine-in
+04-05-2024,19:01,2,18000,Coffee,Latte,36000,dine-in
+14-05-2024,15:54,2,18000,Coffee,Cappucinno,36000,dine-in
+06-05-2024,20:37,2,12000,Food,Tahu Bakso,24000,dine-in
+23-05-2024,18:33,2,9000,Food,Pisang Goreng,18000,dine-in
