@@ -8,7 +8,7 @@ sys.path.insert(1,"E:\\Programming\\Python\\JupyterNotebook\\Clustering\\Tugas_A
 
 from utils.utils import pre_process
 
-kmeans_model = joblib.load("../data/kmeans_model_pca_firefly.joblib")
+kmeans_model = joblib.load("E:\Programming\Python\JupyterNotebook\Clustering\Tugas_Akhir\App\data\kmeans_model_pca_firefly.joblib")
 
 # Dummy CSV file upload
 def get_valid_csv_file():
