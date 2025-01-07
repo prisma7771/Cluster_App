@@ -11,7 +11,7 @@ def compute_pca(data, n):
 
 
 @st.cache_data
-def compute_tsne(data, n):
+def compute_3d(data, n):
     tsne = TSNE(n_components=n, random_state=42)
     X_tsne2 = tsne.fit_transform(data, n)
     return X_tsne2

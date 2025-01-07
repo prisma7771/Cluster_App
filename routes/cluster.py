@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.cm as cm
 import matplotlib.colors as mcolors
 import plotly.graph_objects as go
-from utils.computation import compute_tsne
+from utils.computation import compute_3d
 from utils.utils import pre_process
 
 
@@ -59,10 +59,10 @@ def calculate_data(selected_items):
     return result
 
 
-def plot_3d_tsne_new(
-    combined_data, pred_cluster, data_type, title="t-SNE 3D Visualization"
+def plot_3d_new(
+    combined_data, pred_cluster, data_type, title="3D Visualization"
 ):
-    X_tsne = compute_tsne(combined_data, 3)
+    X_tsne = compute_3d(combined_data, 3)
 
     set2_colors = cm.Set2.colors
     color_map = {i: mcolors.to_hex(set2_colors[i]) for i in range(len(set2_colors))}
@@ -180,7 +180,7 @@ if menu_option == "Upload Data":
 
                 features_only = combined_data.drop(columns=["Cluster", "DataType"])
 
-                plot_3d_tsne_new(
+                plot_3d_new(
                     features_only, combined_data["Cluster"], combined_data["DataType"]
                 )
         else:
@@ -353,6 +353,6 @@ elif menu_option == "Input New Data":
 
         features_only = combined_data.drop(columns=["Cluster", "DataType"])
 
-        plot_3d_tsne_new(
+        plot_3d_new(
             features_only, combined_data["Cluster"], combined_data["DataType"]
         )

@@ -10,7 +10,7 @@ import plotly.graph_objects as go
 from sklearn.metrics import silhouette_score
 from utils.utils import load_data, pre_process
 from utils.pipa import pipeline_ori
-from utils.computation import compute_pca, compute_tsne
+from utils.computation import compute_pca, compute_3d
 import os
 from PIL import Image
 
@@ -100,7 +100,7 @@ def plot_2d_projection(data, pred_cluster, method="pca", save_path="plot.png"):
         data_vis_array = compute_pca(data, 2)
         title = "Caffe_Order - PCA"
     elif method == "tsne":
-        data_vis_array = compute_tsne(data, 2)
+        data_vis_array = compute_3d(data, 2)
         title = "Caffe_Order - t-SNE"
     else:
         raise ValueError("Invalid method. Choose 'pca' or 'tsne'.")
@@ -143,7 +143,7 @@ def plot_3d_projection(data, pred_cluster, method="pca", save_path="plot3d.png")
         data_vis_array = compute_pca(data, 3)  # Assumes compute_pca3 gives 3 components
         title = "Caffe_Order - PCA (3D)"
     elif method == "tsne":
-        data_vis_array = compute_tsne(
+        data_vis_array = compute_3d(
             data, 3
         )  # Assumes compute_tsne3 gives 3 components
         title = "Caffe_Order - t-SNE (3D)"
